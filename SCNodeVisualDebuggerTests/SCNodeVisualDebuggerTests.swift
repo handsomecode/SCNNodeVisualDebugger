@@ -7,30 +7,102 @@
 //
 
 import XCTest
+import SceneKit
+
 @testable import SCNodeVisualDebugger
 
 class SCNodeVisualDebuggerTests: XCTestCase {
     
+    var node: SCNNode!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        node = SCNNode()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        node.childNodes.forEach { $0.removeFromParentNode() }
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testAddDebugAxesSuccess() {
+        node.addDebugAxes()
+        
+        XCTAssertTrue(node.hasDebugAxes())
+        XCTAssertEqual(node.childNodes.count, 2)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testRemoveDebugAxesSuccess() {
+        node.addDebugAxes()
+        XCTAssertTrue(node.hasDebugAxes())
+        
+        node.removeDebugAxes()
+        XCTAssertFalse(node.hasDebugAxes())
+        XCTAssertEqual(node.childNodes.count, 0)
+    }
+    
+    func testHasDebugAxesSuccess() {
+        node.addDebugAxes()
+        
+        let hasLocalDebugAxis = node.childNode(withName: CoordinateSystem.local, recursively: false) != nil
+        let hasPivotDebugAxis = node.childNode(withName: CoordinateSystem.pivot, recursively: false) != nil
+        
+        XCTAssertTrue(hasLocalDebugAxis)
+        XCTAssertTrue(hasPivotDebugAxis)
+    }
+    
+    func testLocalAndPivotTransformsAreEqualSuccesful() {
+        node.addDebugAxes()
+        
+        guard let localNode = node.childNode(withName: CoordinateSystem.local, recursively: false),
+        let pivotNode = node.childNode(withName: CoordinateSystem.pivot, recursively: false) else {
+            XCTFail()
+            return
         }
+        let isTransformsEqual = SCNMatrix4EqualToMatrix4(localNode.transform, pivotNode.transform)
+        XCTAssertTrue(isTransformsEqual)
     }
     
+    func testPivotTransformIsDifferentFromLocalOneSuccesful() {
+        node.addDebugAxes()
+        
+        guard let localNode = node.childNode(withName: CoordinateSystem.local, recursively: false),
+            let pivotNode = node.childNode(withName: CoordinateSystem.pivot, recursively: false) else {
+                XCTFail()
+                return
+        }
+        
+        node.pivot = SCNMatrix4MakeTranslation(10, 0, 0)
+        
+        let isTransformsEqual = SCNMatrix4EqualToMatrix4(localNode.transform, pivotNode.transform)
+        XCTAssertFalse(isTransformsEqual)
+    }
+    
+    func testCorrectAxesColors() {
+        node.addDebugAxes()
+        
+        guard let localNode = node.childNode(withName: CoordinateSystem.local, recursively: false),
+            let pivotNode = node.childNode(withName: CoordinateSystem.pivot, recursively: false) else {
+                XCTFail()
+                return
+        }
+        
+        XCTAssertEqual(localNode.childNodes[0].colorOfMaterial, UIColor.red)
+        XCTAssertEqual(localNode.childNodes[1].colorOfMaterial, UIColor.green)
+        XCTAssertEqual(localNode.childNodes[2].colorOfMaterial, UIColor.blue)
+        
+        XCTAssertEqual(pivotNode.childNodes[0].colorOfMaterial, UIColor.red)
+        XCTAssertEqual(pivotNode.childNodes[1].colorOfMaterial, UIColor.green)
+        XCTAssertEqual(pivotNode.childNodes[2].colorOfMaterial, UIColor.blue)
+    }
+}
+
+//MARK: Helpers
+extension SCNNode {
+    var colorOfMaterial: UIColor {
+        guard let color = self.geometry?.firstMaterial?.diffuse.contents as? UIColor else {
+            preconditionFailure("color not found")
+        }
+        return color
+    }
 }

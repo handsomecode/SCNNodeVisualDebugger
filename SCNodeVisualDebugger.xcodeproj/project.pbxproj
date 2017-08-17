@@ -10,6 +10,11 @@
 		882CA9431F45A65E002FD8DA /* SCNodeVisualDebugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882CA9391F45A65E002FD8DA /* SCNodeVisualDebugger.framework */; };
 		882CA9481F45A65E002FD8DA /* SCNodeVisualDebuggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA9471F45A65E002FD8DA /* SCNodeVisualDebuggerTests.swift */; };
 		882CA94A1F45A65E002FD8DA /* SCNodeVisualDebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 882CA93C1F45A65E002FD8DA /* SCNodeVisualDebugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		882CA9541F45AA67002FD8DA /* NodeVisualDebugger.swift in Headers */ = {isa = PBXBuildFile; fileRef = 882CA9531F45AA67002FD8DA /* NodeVisualDebugger.swift */; };
+		882CA9561F45AAD2002FD8DA /* SNNode+DebugAxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA9551F45AAD2002FD8DA /* SNNode+DebugAxes.swift */; };
+		882CA9571F45ABD1002FD8DA /* NodeVisualDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA9531F45AA67002FD8DA /* NodeVisualDebugger.swift */; };
+		882CA9591F45AC15002FD8DA /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA9581F45AC15002FD8DA /* SCNNode+Helpers.swift */; };
+		882CA95B1F45ACD4002FD8DA /* CoordinateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA95A1F45ACD4002FD8DA /* CoordinateSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,10 @@
 		882CA9421F45A65E002FD8DA /* SCNodeVisualDebuggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SCNodeVisualDebuggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		882CA9471F45A65E002FD8DA /* SCNodeVisualDebuggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNodeVisualDebuggerTests.swift; sourceTree = "<group>"; };
 		882CA9491F45A65E002FD8DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		882CA9531F45AA67002FD8DA /* NodeVisualDebugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeVisualDebugger.swift; sourceTree = "<group>"; };
+		882CA9551F45AAD2002FD8DA /* SNNode+DebugAxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNNode+DebugAxes.swift"; sourceTree = "<group>"; };
+		882CA9581F45AC15002FD8DA /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
+		882CA95A1F45ACD4002FD8DA /* CoordinateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +81,10 @@
 			isa = PBXGroup;
 			children = (
 				882CA93C1F45A65E002FD8DA /* SCNodeVisualDebugger.h */,
+				882CA9531F45AA67002FD8DA /* NodeVisualDebugger.swift */,
+				882CA9551F45AAD2002FD8DA /* SNNode+DebugAxes.swift */,
+				882CA9581F45AC15002FD8DA /* SCNNode+Helpers.swift */,
+				882CA95A1F45ACD4002FD8DA /* CoordinateSystem.swift */,
 				882CA93D1F45A65E002FD8DA /* Info.plist */,
 			);
 			path = Source;
@@ -94,6 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				882CA94A1F45A65E002FD8DA /* SCNodeVisualDebugger.h in Headers */,
+				882CA9541F45AA67002FD8DA /* NodeVisualDebugger.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +162,7 @@
 				TargetAttributes = {
 					882CA9381F45A65E002FD8DA = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 					};
 					882CA9411F45A65E002FD8DA = {
 						CreatedOnToolsVersion = 9.0;
@@ -194,6 +209,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882CA9571F45ABD1002FD8DA /* NodeVisualDebugger.swift in Sources */,
+				882CA9561F45AAD2002FD8DA /* SNNode+DebugAxes.swift in Sources */,
+				882CA95B1F45ACD4002FD8DA /* CoordinateSystem.swift in Sources */,
+				882CA9591F45AC15002FD8DA /* SCNNode+Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +351,7 @@
 		882CA94E1F45A65E002FD8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -343,6 +363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.SCNodeVisualDebugger;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -351,6 +372,7 @@
 		882CA94F1F45A65E002FD8DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -370,6 +392,7 @@
 		882CA9511F45A65E002FD8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = SCNodeVisualDebuggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.SCNodeVisualDebuggerTests;
@@ -382,6 +405,7 @@
 		882CA9521F45A65E002FD8DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = SCNodeVisualDebuggerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.SCNodeVisualDebuggerTests;
