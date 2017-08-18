@@ -28,6 +28,6 @@ public extension SCNNode {
     }
     
     public func hasDebugAxes() -> Bool {
-        return self.hasLocalDebugAxes && hasPivotDebugAxes
+        return hasLocalDebugAxes && hasPivotDebugAxes
     }
 }
