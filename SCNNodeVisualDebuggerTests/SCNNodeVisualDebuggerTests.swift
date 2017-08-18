@@ -9,9 +9,9 @@
 import XCTest
 import SceneKit
 
-@testable import SCNodeVisualDebugger
+@testable import SCNNodeVisualDebugger
 
-class SCNodeVisualDebuggerTests: XCTestCase {
+class SCNNodeVisualDebuggerTests: XCTestCase {
     
     var node: SCNNode!
     
