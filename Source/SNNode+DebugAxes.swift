@@ -20,11 +20,11 @@ import SceneKit
 
 public extension SCNNode {
     public func addDebugAxes(recursively: Bool = false) {
-        NodeVisualDebugger.shared.debugAxes(node: self, recursively: recursively)
+        SCNNodeVisualDebugger.shared.debugAxes(node: self, recursively: recursively)
     }
     
     public func removeDebugAxes(recursively: Bool = false) {
-        NodeVisualDebugger.shared.undebugAxes(node: self, recursively: recursively)
+        SCNNodeVisualDebugger.shared.undebugAxes(node: self, recursively: recursively)
     }
     
     public func hasDebugAxes() -> Bool {

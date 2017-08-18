@@ -18,7 +18,7 @@
 import Foundation
 import SceneKit
 
-class NodeVisualDebugger: NSObject {
+class SCNNodeVisualDebugger: NSObject {
     
     private enum LocalAxisSize {
         static let width: CGFloat = 0.005
@@ -30,7 +30,7 @@ class NodeVisualDebugger: NSObject {
         static let length: CGFloat = 0.01
     }
     
-    static let shared = NodeVisualDebugger()
+    static let shared = SCNNodeVisualDebugger()
     
     private var observations = [SCNNode: NSKeyValueObservation]()
     
