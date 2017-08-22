@@ -1,9 +1,40 @@
 //
-//  SCNBoundingVolume+MaxDimensionValue.swift
-//  SCNNodeVisualDebugger
+// Copyright © 2017 Handsome.
 //
-//  Created by Andrey Arzhannikov on 22.08.17.
-//  Copyright © 2017 Handsome. All rights reserved.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+/////////////////////////////////////////////////////////////////////////////
 
 import Foundation
+import SceneKit
+
+extension SCNBoundingVolume {
+    private var height: Float {
+        let (min, max) = self.boundingBox
+        return max.y - min.y
+    }
+    
+    private var width: Float {
+        let (min, max) = self.boundingBox
+        return max.x - min.x
+    }
+    
+    private var length: Float {
+        let (min, max) = self.boundingBox
+        return max.z - min.z
+    }
+    
+    var maxDimensionValue: Float {
+        return max(width, max(height, length))
+    }
+}

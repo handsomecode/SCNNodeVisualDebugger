@@ -19,27 +19,12 @@ import Foundation
 import SceneKit
 
 extension SCNNode {
-    private var height: Float {
-        let (min, max) = self.boundingBox
-        return max.y - min.y
-    }
-    
-    private var width: Float {
-        let (min, max) = self.boundingBox
-        return max.x - min.x
-    }
-    
-    private var length: Float {
-        let (min, max) = self.boundingBox
-        return max.z - min.z
-    }
-    
-    var maxSizeValue: Float {
-        return max(width, max(height, length))
-    }
-    
     var isDebugAxes: Bool {
-        return self.name == CoordinateSystem.local || self.name == CoordinateSystem.pivot
+        return self.name == CoordinateSystem.local ||
+            self.name == CoordinateSystem.pivot ||
+            self.name == CoordinateSystem.Axis.x ||
+            self.name == CoordinateSystem.Axis.y ||
+            self.name == CoordinateSystem.Axis.z
     }
     
     var hasLocalDebugAxes: Bool {
@@ -48,5 +33,9 @@ extension SCNNode {
     
     var hasPivotDebugAxes: Bool {
         return self.childNode(withName: CoordinateSystem.pivot, recursively: false) != nil
+    }
+    
+    var pivotAxes: SCNNode? {
+        return self.childNode(withName: CoordinateSystem.pivot, recursively: false)
     }
 }
