@@ -32,10 +32,14 @@ extension SCNNode {
     }
     
     var hasPivotDebugAxes: Bool {
-        return self.childNode(withName: CoordinateSystem.pivot, recursively: false) != nil
+        return pivotAxes != nil
     }
     
     var pivotAxes: SCNNode? {
         return self.childNode(withName: CoordinateSystem.pivot, recursively: false)
+    }
+    
+    var lengthOfTheGreatestSideOfBoundingBox: Float {
+        return self.geometry?.lengthOfTheGreatestSide ?? self.lengthOfTheGreatestSide
     }
 }

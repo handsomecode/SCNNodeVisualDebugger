@@ -34,7 +34,7 @@ extension SCNBoundingVolume {
         return max.z - min.z
     }
     
-    var maxDimensionValue: Float {
+    var lengthOfTheGreatestSide: Float {
         return max(width, max(height, length))
     }
 }

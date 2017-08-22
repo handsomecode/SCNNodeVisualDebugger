@@ -53,15 +53,14 @@ class SCNNodeVisualDebugger: NSObject {
         if SCNMatrix4IsIdentity(node.pivot) {
             pivotAxes = generateAxesFromSettings(AxesSettignsFactory.makePivotAxesSettings(for: node))
         } else {
-            let maxValue = maxDimensionValueOfOverlappingNodes(for: node)
-            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, axisLength: CGFloat(maxValue))
+            let lengthOfBoundingBoxSide = findTheGreatestOverlappingNode(for: node)?.lengthOfTheGreatestSideOfBoundingBox
+            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, axisLength: lengthOfBoundingBoxSide)
             pivotAxes = generateAxesFromSettings(axesSettings)
         }
         node.addChildNode(pivotAxes)
         
         let observation = node.observe(\.pivot) { node, change in
             pivotAxes.transform = node.pivot
-            
             self.updatePivotAxesIfNeeded(for: node)
         }
         observations[node] = observation
@@ -87,7 +86,7 @@ class SCNNodeVisualDebugger: NSObject {
             geometry.materials = [material]
             
             let axis = SCNNode(geometry: geometry)
-            let offset = Float(settings.dimensions.length * 0.5)
+            let offset = settings.axisSize.length * 0.5
             axis.pivot = SCNMatrix4MakeTranslation(0, -offset, 0)
             axis.rotation = rotation
             return axis
@@ -172,48 +171,37 @@ extension SCNNodeVisualDebugger {
 
 //MARK: Pivot Axes Helper
 extension SCNNodeVisualDebugger {
+    
     private func updatePivotAxesIfNeeded(for node: SCNNode) {
-        let maxValue = maxDimensionValueOfOverlappingNodes(for: node)
-        if maxValue > axisLength(for: node) {
-            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, axisLength: CGFloat(maxValue))
+        guard let overlappingNode = findTheGreatestOverlappingNode(for: node) else { return }
+        let lengthOfBoundingBoxSide = overlappingNode.lengthOfTheGreatestSideOfBoundingBox
+        if lengthOfBoundingBoxSide > node.lengthOfTheGreatestSideOfBoundingBox {
+            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, axisLength: lengthOfBoundingBoxSide)
             let pivotAxes = generateAxesFromSettings(axesSettings)
-            node.replaceChildNode(node.pivotAxes!, with: pivotAxes)
-        }
-    }
-    
-    private func maxDimensionValueOfOverlappingNodes(for node: SCNNode) -> Float {
-        let overlappinNodes = findOverlappingNodes(for: node)!
-        
-        let nodeMaxDimensionValue = axisLength(for: node)
-        var maxDimensionValue = nodeMaxDimensionValue
-        overlappinNodes.forEach {
-            if axisLength(for: $0) > maxDimensionValue {
-                maxDimensionValue = axisLength(for: $0)
+            guard let pivotAxesOfNode = node.pivotAxes else {
+                fatalError("Pivot axes must exist")
             }
+            node.replaceChildNode(pivotAxesOfNode, with: pivotAxes)
         }
-        
-        return maxDimensionValue
     }
     
-    func findOverlappingNodes(for node: SCNNode) -> [SCNNode]? {
-        let rootNode = findRootNode(from: node)
-        
+    private func findTheGreatestOverlappingNode(for node: SCNNode) -> SCNNode? {
         let worldPosition = node.convertPosition(node.position, to: nil)
+        let rootNode = findRootNode(from: node)
         let hitTestResult = rootNode.hitTestWithSegment(from: SCNVector3(worldPosition.x, worldPosition.y, -100),
                                                         to: SCNVector3(worldPosition.x, worldPosition.y, 100),
                                                         options: nil)
-        return hitTestResult.map { $0.node }
+        guard !hitTestResult.isEmpty else { return nil }
+        let overlappingNodes = hitTestResult.map { $0.node }
+        let theGreatestNode = overlappingNodes.max { $0.lengthOfTheGreatestSideOfBoundingBox < $1.lengthOfTheGreatestSideOfBoundingBox }
+        return theGreatestNode
     }
     
-    func findRootNode(from node: SCNNode) -> SCNNode {
+    private func findRootNode(from node: SCNNode) -> SCNNode {
         var rootNode: SCNNode = node
         while let parent = rootNode.parent {
             rootNode = parent
         }
         return rootNode
-    }
-    
-    private func axisLength(for node: SCNNode) -> Float {
-        return node.geometry?.maxDimensionValue ?? node.maxDimensionValue
     }
 }

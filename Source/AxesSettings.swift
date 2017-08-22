@@ -19,7 +19,7 @@ import Foundation
 import SceneKit
 
 protocol AxesSettings {
-    var dimensions: AxesDimensions { get }
+    var axisSize: AxisSize { get }
     var geometry: SCNGeometry { get }
     var colors: AxesColors { get }
     var name: String { get }
@@ -32,21 +32,21 @@ struct AxesColors {
     let z: UIColor
 }
 
-struct AxesDimensions {
-    let width: CGFloat
-    let length: CGFloat
-    let depth: CGFloat
+struct AxisSize {
+    let width: Float
+    let length: Float
+    let depth: Float
 }
 
 struct LocalAxesSettings: AxesSettings {
-    var dimensions: AxesDimensions {
-        return AxesDimensions(width: 0.01, length: length, depth: 0.01)
+    var axisSize: AxisSize {
+        return AxisSize(width: 0.01, length: length, depth: 0.01)
     }
     
     var geometry: SCNGeometry {
-        return SCNBox(width: dimensions.width,
-                      height: dimensions.length,
-                      length: dimensions.depth,
+        return SCNBox(width: CGFloat(axisSize.width),
+                      height: CGFloat(axisSize.length),
+                      length: CGFloat(axisSize.depth),
                       chamferRadius: 0.0)
     }
     
@@ -54,22 +54,22 @@ struct LocalAxesSettings: AxesSettings {
     var colors: AxesColors = AxesColors(x: .red, y: .green, z: .blue)
     var transform: SCNMatrix4 = SCNMatrix4Identity
     
-    private let length: CGFloat
+    private let length: Float
     
-    init(axisLength: CGFloat) {
+    init(axisLength: Float) {
         self.length = axisLength
     }
 }
 
 struct PivotAxesSettings: AxesSettings {
-    var dimensions: AxesDimensions {
-        return AxesDimensions(width: 0.005, length: length, depth: 0.001)
+    var axisSize: AxisSize {
+        return AxisSize(width: 0.005, length: length, depth: 0.001)
     }
     
     var geometry: SCNGeometry {
-        return SCNBox(width: dimensions.width,
-                      height: dimensions.length,
-                      length: dimensions.depth,
+        return SCNBox(width: CGFloat(axisSize.width),
+                      height: CGFloat(axisSize.length),
+                      length: CGFloat(axisSize.depth),
                       chamferRadius: 0.0)
     }
     
@@ -79,27 +79,23 @@ struct PivotAxesSettings: AxesSettings {
         return pivotTransform
     }
     
-    private let length: CGFloat
+    private let length: Float
     private let pivotTransform: SCNMatrix4
     
-    init(axisLength: CGFloat, pivotTransform: SCNMatrix4) {
+    init(axisLength: Float, pivotTransform: SCNMatrix4) {
         self.length = axisLength
         self.pivotTransform = pivotTransform
     }
 }
 
 struct AxesSettignsFactory {
-    static func makeLocalAxesSettings(for node: SCNNode, axisLength: CGFloat? = nil) -> AxesSettings {
-        let length = axisLength ?? nodeMaxDimensionValue(node)
+    static func makeLocalAxesSettings(for node: SCNNode, axisLength: Float? = nil) -> AxesSettings {
+        let length = axisLength ?? node.lengthOfTheGreatestSideOfBoundingBox
         return LocalAxesSettings(axisLength: length)
     }
     
-    static func makePivotAxesSettings(for node: SCNNode, axisLength: CGFloat? = nil) -> AxesSettings {
-        let length = axisLength ?? (nodeMaxDimensionValue(node) * 1.5)
+    static func makePivotAxesSettings(for node: SCNNode, axisLength: Float? = nil) -> AxesSettings {
+        let length = axisLength ?? (node.lengthOfTheGreatestSideOfBoundingBox * 1.5)
         return PivotAxesSettings(axisLength: length, pivotTransform: node.pivot)
-    }
-    
-    private static func nodeMaxDimensionValue(_ node: SCNNode) -> CGFloat {
-        return CGFloat(node.geometry?.maxDimensionValue ?? node.maxDimensionValue)
     }
 }
