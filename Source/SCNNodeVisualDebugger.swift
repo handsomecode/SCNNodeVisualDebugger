@@ -54,7 +54,7 @@ class SCNNodeVisualDebugger: NSObject {
             pivotAxes = generateAxesFromSettings(AxesSettignsFactory.makePivotAxesSettings(for: node))
         } else {
             let lengthOfBoundingBoxSide = findTheGreatestOverlappingNode(for: node)?.lengthOfTheGreatestSideOfBoundingBox
-            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, axisLength: lengthOfBoundingBoxSide)
+            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, customAxisLength: lengthOfBoundingBoxSide)
             pivotAxes = generateAxesFromSettings(axesSettings)
         }
         node.addChildNode(pivotAxes)
@@ -176,7 +176,7 @@ extension SCNNodeVisualDebugger {
         guard let overlappingNode = findTheGreatestOverlappingNode(for: node) else { return }
         let lengthOfBoundingBoxSide = overlappingNode.lengthOfTheGreatestSideOfBoundingBox
         if lengthOfBoundingBoxSide > node.lengthOfTheGreatestSideOfBoundingBox {
-            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, axisLength: lengthOfBoundingBoxSide)
+            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, customAxisLength: lengthOfBoundingBoxSide)
             let pivotAxes = generateAxesFromSettings(axesSettings)
             guard let pivotAxesOfNode = node.pivotAxes else {
                 fatalError("Pivot axes must exist")

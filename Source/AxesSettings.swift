@@ -89,13 +89,13 @@ struct PivotAxesSettings: AxesSettings {
 }
 
 struct AxesSettignsFactory {
-    static func makeLocalAxesSettings(for node: SCNNode, axisLength: Float? = nil) -> AxesSettings {
-        let length = axisLength ?? node.lengthOfTheGreatestSideOfBoundingBox
+    static func makeLocalAxesSettings(for node: SCNNode, customAxisLength: Float? = nil) -> AxesSettings {
+        let length = customAxisLength ?? node.lengthOfTheGreatestSideOfBoundingBox
         return LocalAxesSettings(axisLength: length)
     }
     
-    static func makePivotAxesSettings(for node: SCNNode, axisLength: Float? = nil) -> AxesSettings {
-        let length = axisLength ?? (node.lengthOfTheGreatestSideOfBoundingBox * 1.5)
+    static func makePivotAxesSettings(for node: SCNNode, customAxisLength: Float? = nil) -> AxesSettings {
+        let length = customAxisLength ?? (node.lengthOfTheGreatestSideOfBoundingBox * 1.5)
         return PivotAxesSettings(axisLength: length, pivotTransform: node.pivot)
     }
 }
