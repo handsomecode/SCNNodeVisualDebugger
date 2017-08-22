@@ -91,9 +91,9 @@ class SCNNodeVisualDebuggerTests: XCTestCase {
         XCTAssertEqual(localNode.childNodes[1].colorOfMaterial, UIColor.green)
         XCTAssertEqual(localNode.childNodes[2].colorOfMaterial, UIColor.blue)
         
-        XCTAssertEqual(pivotNode.childNodes[0].colorOfMaterial, UIColor.red)
-        XCTAssertEqual(pivotNode.childNodes[1].colorOfMaterial, UIColor.green)
-        XCTAssertEqual(pivotNode.childNodes[2].colorOfMaterial, UIColor.blue)
+        XCTAssertEqual(pivotNode.childNodes[0].colorOfMaterial, UIColor.magenta)
+        XCTAssertEqual(pivotNode.childNodes[1].colorOfMaterial, UIColor.yellow)
+        XCTAssertEqual(pivotNode.childNodes[2].colorOfMaterial, UIColor.cyan)
     }
 }
 
