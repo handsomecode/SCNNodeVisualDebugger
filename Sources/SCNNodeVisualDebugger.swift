@@ -26,7 +26,7 @@ class SCNNodeVisualDebugger: NSObject {
     
     private var observations = [SCNNode: NSKeyValueObservation]()
     
-    private lazy var doubleTapGestureRecognizer: UITapGestureRecognizer = {
+    fileprivate lazy var doubleTapGestureRecognizer: UITapGestureRecognizer = {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 2
         return tapGestureRecognizer
@@ -79,7 +79,7 @@ class SCNNodeVisualDebugger: NSObject {
         }
     }
     
-    private func generateAxesFromSettings(_ settings: AxesSettings) -> SCNNode {
+    fileprivate func generateAxesFromSettings(_ settings: AxesSettings) -> SCNNode {
         
         func generateAxis(color: UIColor, rotation: SCNVector4, geometry: SCNGeometry) -> SCNNode {
             let material = SCNMaterial()
@@ -152,7 +152,7 @@ extension SCNNodeVisualDebugger {
     }
     
     @objc
-    private func handleDoubleTap(_ gestureRecognize: UIGestureRecognizer) {
+    fileprivate func handleDoubleTap(_ gestureRecognize: UIGestureRecognizer) {
         guard let scnView = gestureRecognize.view as? SCNView else {
             fatalError("View must be type SCNView")
         }
@@ -173,7 +173,7 @@ extension SCNNodeVisualDebugger {
 //MARK: Pivot Axes Helper
 extension SCNNodeVisualDebugger {
     
-    private func updatePivotAxesIfNeeded(for node: SCNNode) {
+    fileprivate func updatePivotAxesIfNeeded(for node: SCNNode) {
         guard let overlappingNode = findTheGreatestOverlappingNode(for: node) else { return }
         let lengthOfBoundingBoxSide = overlappingNode.lengthOfTheGreatestSideOfBoundingBox
         if lengthOfBoundingBoxSide > node.lengthOfTheGreatestSideOfBoundingBox {
@@ -186,7 +186,7 @@ extension SCNNodeVisualDebugger {
         }
     }
     
-    private func findTheGreatestOverlappingNode(for node: SCNNode) -> SCNNode? {
+    fileprivate func findTheGreatestOverlappingNode(for node: SCNNode) -> SCNNode? {
         let worldPosition = node.convertPosition(node.position, to: nil)
         let rootNode = findRootNode(from: node)
         let hitTestResult = rootNode.hitTestWithSegment(from: SCNVector3(worldPosition.x, worldPosition.y, -100),
