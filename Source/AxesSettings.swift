@@ -88,12 +88,12 @@ struct PivotAxesSettings: AxesSettings {
     }
 }
 
-struct AxesSettignsFactory {
+struct AxesSettignsProvider {
     static func makeLocalAxesSettings(for node: SCNNode, customAxisLength: Float? = nil) -> AxesSettings {
         let length = customAxisLength ?? node.lengthOfTheGreatestSideOfBoundingBox
         return LocalAxesSettings(axisLength: length)
     }
-    
+
     static func makePivotAxesSettings(for node: SCNNode, customAxisLength: Float? = nil) -> AxesSettings {
         let length = customAxisLength ?? (node.lengthOfTheGreatestSideOfBoundingBox * 1.5)
         return PivotAxesSettings(axisLength: length, pivotTransform: node.pivot)

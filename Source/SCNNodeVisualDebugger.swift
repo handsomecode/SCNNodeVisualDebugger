@@ -46,22 +46,23 @@ class SCNNodeVisualDebugger: NSObject {
         
         removeDebuggingForNode(node)
         
-        let localAxes = generateAxesFromSettings(AxesSettignsFactory.makeLocalAxesSettings(for: node))
+        let localAxes = generateAxesFromSettings(AxesSettignsProvider.makeLocalAxesSettings(for: node))
         node.addChildNode(localAxes)
         
         let pivotAxes: SCNNode
         if SCNMatrix4IsIdentity(node.pivot) {
-            pivotAxes = generateAxesFromSettings(AxesSettignsFactory.makePivotAxesSettings(for: node))
+            pivotAxes = generateAxesFromSettings(AxesSettignsProvider.makePivotAxesSettings(for: node))
         } else {
             let lengthOfBoundingBoxSide = findTheGreatestOverlappingNode(for: node)?.lengthOfTheGreatestSideOfBoundingBox
-            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, customAxisLength: lengthOfBoundingBoxSide)
+            let axesSettings = AxesSettignsProvider.makePivotAxesSettings(for: node, customAxisLength: lengthOfBoundingBoxSide)
             pivotAxes = generateAxesFromSettings(axesSettings)
         }
         node.addChildNode(pivotAxes)
         
-        let observation = node.observe(\.pivot) { node, change in
+        let observation = node.observe(\.pivot) { [weak self] node, change in
             pivotAxes.transform = node.pivot
-            self.updatePivotAxesIfNeeded(for: node)
+            guard let strongSelf = self else { return }
+            strongSelf.updatePivotAxesIfNeeded(for: node)
         }
         observations[node] = observation
         
@@ -176,7 +177,7 @@ extension SCNNodeVisualDebugger {
         guard let overlappingNode = findTheGreatestOverlappingNode(for: node) else { return }
         let lengthOfBoundingBoxSide = overlappingNode.lengthOfTheGreatestSideOfBoundingBox
         if lengthOfBoundingBoxSide > node.lengthOfTheGreatestSideOfBoundingBox {
-            let axesSettings = AxesSettignsFactory.makePivotAxesSettings(for: node, customAxisLength: lengthOfBoundingBoxSide)
+            let axesSettings = AxesSettignsProvider.makePivotAxesSettings(for: node, customAxisLength: lengthOfBoundingBoxSide)
             let pivotAxes = generateAxesFromSettings(axesSettings)
             guard let pivotAxesOfNode = node.pivotAxes else {
                 fatalError("Pivot axes must exist")
