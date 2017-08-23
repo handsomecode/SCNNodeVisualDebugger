@@ -1,10 +1,19 @@
 //
-//  GameViewController.swift
-//  SceneKitSample
+// Copyright © 2017 Handsome.
 //
-//  Created by Andrey Arzhannikov on 18.08.17.
-//  Copyright © 2017 Handsome. All rights reserved.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+/////////////////////////////////////////////////////////////////////////////
 
 import UIKit
 import QuartzCore
@@ -15,7 +24,7 @@ class GameViewController: UIViewController {
     
     let scene = SCNScene(named: "art.scnassets/ship.scn")!
     lazy var earthNode: SCNNode = {
-        guard let earth = scene.rootNode.childNode(withName: "Earth", recursively: true) else {
+        guard let earth = self.scene.rootNode.childNode(withName: "Earth", recursively: true) else {
             preconditionFailure("Earth node not found")
         }
         return earth
@@ -29,7 +38,7 @@ class GameViewController: UIViewController {
 //    }()
     
     lazy var moonNode: SCNNode = {
-        guard let earth = scene.rootNode.childNode(withName: "Moon", recursively: true) else {
+        guard let earth = self.scene.rootNode.childNode(withName: "Moon", recursively: true) else {
             preconditionFailure("Moon node not found")
         }
         return earth
