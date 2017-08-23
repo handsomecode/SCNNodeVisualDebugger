@@ -23,20 +23,8 @@ import SCNNodeVisualDebugger
 class GameViewController: UIViewController {
     
     private let scene = SCNScene(named: "art.scnassets/ship.scn")!
-    
-    private lazy var earthNode: SCNNode = {
-        guard let earth = self.scene.rootNode.childNode(withName: "Earth", recursively: true) else {
-            preconditionFailure("Earth node not found")
-        }
-        return earth
-    }()
-    
-    private lazy var moonNode: SCNNode = {
-        guard let earth = self.scene.rootNode.childNode(withName: "Moon", recursively: true) else {
-            preconditionFailure("Moon node not found")
-        }
-        return earth
-    }()
+    private lazy var earthNode: SCNNode = self.scene.rootNode.childNode(withName: "Earth", recursively: true)!
+    private lazy var moonNode: SCNNode = self.scene.rootNode.childNode(withName: "Moon", recursively: true)!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -66,14 +54,12 @@ class GameViewController: UIViewController {
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
         
-        // configure the view
-        scnView.backgroundColor = UIColor.black
-        
         //enable debugging on specific node by double tap by that
         scnView.enableDebugAxesByDoubleTap = true
     }
     
     private func switchDebugging(on node: SCNNode) {
+        //check if the node has debug axes
         if node.hasDebugAxes() {
             node.removeDebugAxes()
         } else {
