@@ -22,7 +22,7 @@ import SCNNodeVisualDebugger
 
 class GameViewController: UIViewController {
     
-    private let scene = SCNScene(named: "art.scnassets/ship.scn")!
+    private let scene = SCNScene(named: "art.scnassets/demo.scn")!
     private lazy var earthNode: SCNNode = self.scene.rootNode.childNode(withName: "Earth", recursively: true)!
     private lazy var moonNode: SCNNode = self.scene.rootNode.childNode(withName: "Moon", recursively: true)!
     
@@ -41,6 +41,9 @@ class GameViewController: UIViewController {
         
         //Moon rotation animation
         moonNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 5)))
+        
+        // turn on debugging on node
+        switchDebugging(on: moonNode)
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
