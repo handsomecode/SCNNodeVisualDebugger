@@ -35,7 +35,10 @@ protocol SCNNodeObserverHelper: class  {
 struct SCNNodeObserverHelperProvider {
     static func make() -> SCNNodeObserverHelper {
         if #available(iOS 11.0, *) {
-            return IOS11SCNNodeObserverHelper()
+            #if swift(>=4.0)
+                return IOS11SCNNodeObserverHelper()
+            #endif
+            return PreIOS11SCNNodeObserverHelper()
         }
         return PreIOS11SCNNodeObserverHelper()
     }
@@ -43,6 +46,7 @@ struct SCNNodeObserverHelperProvider {
 
 
 //MARK: IOS11SCNNodeObserverHelper
+@available(swift 4.0)
 fileprivate class IOS11SCNNodeObserverHelper: NSObject, SCNNodeObserverHelper {
     var delegate: SCNNodeObserverHelperDelegate?
     
