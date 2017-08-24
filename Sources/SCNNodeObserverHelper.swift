@@ -34,43 +34,45 @@ protocol SCNNodeObserverHelper: class  {
 
 struct SCNNodeObserverHelperProvider {
     static func make() -> SCNNodeObserverHelper {
-        if #available(iOS 11.0, *) {
-            #if swift(>=4.0)
-                return IOS11SCNNodeObserverHelper()
-            #endif
-            return PreIOS11SCNNodeObserverHelper()
-        }
+// FIXME: Make this available when Xcode 9 has stable version
+//        if #available(iOS 11.0, *) {
+//            #if swift(>=4.0)
+//                return IOS11SCNNodeObserverHelper()
+//            #endif
+//            return PreIOS11SCNNodeObserverHelper()
+//        }
+        
         return PreIOS11SCNNodeObserverHelper()
     }
 }
 
-
-//MARK: IOS11SCNNodeObserverHelper
-@available(swift 4.0)
-fileprivate class IOS11SCNNodeObserverHelper: NSObject, SCNNodeObserverHelper {
-    var delegate: SCNNodeObserverHelperDelegate?
-    
-    private var observations = [SCNNode: NSKeyValueObservation]()
-    
-    func addObserver(to node: SCNNode) {
-        let observation = node.observe(\.pivot) { [weak self] node, change in
-            guard let strongSelf = self else { return }
-            strongSelf.delegate?.nodeObserverHelperDelegate(strongSelf, didNodePivotChange: node)
-        }
-        observations[node] = observation
-    }
-    
-    func removeObserver(from node: SCNNode) {
-        if let existingObservation = observations.removeValue(forKey: node) {
-            existingObservation.invalidate()
-        }
-    }
-    
-    func removeAllObservers() {
-        observations.values.forEach { $0.invalidate() }
-        observations.removeAll()
-    }
-}
+// FIXME: Make this available when Xcode 9 has stable version
+////MARK: IOS11SCNNodeObserverHelper
+//@available(swift 4.0)
+//fileprivate class IOS11SCNNodeObserverHelper: NSObject, SCNNodeObserverHelper {
+//    var delegate: SCNNodeObserverHelperDelegate?
+//    
+//    private var observations = [SCNNode: NSKeyValueObservation]()
+//    
+//    func addObserver(to node: SCNNode) {
+//        let observation = node.observe(\.pivot) { [weak self] node, change in
+//            guard let strongSelf = self else { return }
+//            strongSelf.delegate?.nodeObserverHelperDelegate(strongSelf, didNodePivotChange: node)
+//        }
+//        observations[node] = observation
+//    }
+//    
+//    func removeObserver(from node: SCNNode) {
+//        if let existingObservation = observations.removeValue(forKey: node) {
+//            existingObservation.invalidate()
+//        }
+//    }
+//    
+//    func removeAllObservers() {
+//        observations.values.forEach { $0.invalidate() }
+//        observations.removeAll()
+//    }
+//}
 
 
 //MARK: PreIOS11SCNNodeObserverHelper
