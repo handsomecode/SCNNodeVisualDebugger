@@ -210,7 +210,7 @@ extension SCNNodeVisualDebugger: SCNNodeObserverHelperDelegate {
     
     func nodeObserverHelperDelegate(_ helper: SCNNodeObserverHelper, didNodePivotChange node: SCNNode) {
         guard let pivotAxes = node.pivotAxes else {
-            fatalError("Node must have pivot axes")
+            return
         }
         pivotAxes.transform = node.pivot
         updatePivotAxesIfNeeded(for: node)
