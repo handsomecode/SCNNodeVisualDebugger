@@ -24,12 +24,16 @@ class SCNNodeVisualDebugger: NSObject {
     
     var enableDebugAxesByDoubleTap: Bool = false
     
-    private var observations = [SCNNode: NSKeyValueObservation]()
-    
     fileprivate lazy var doubleTapGestureRecognizer: UITapGestureRecognizer = {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 2
         return tapGestureRecognizer
+    }()
+    
+    private lazy var nodeObserverHelper: SCNNodeObserverHelper = {
+        let helper = SCNNodeObserverHelperProvider.make()
+        helper.delegate = self
+        return helper
     }()
     
     private override init() {
@@ -37,8 +41,7 @@ class SCNNodeVisualDebugger: NSObject {
     }
     
     deinit {
-        observations.values.forEach { $0.invalidate() }
-        observations.removeAll()
+        nodeObserverHelper.removeAllObservers()
     }
     
     func debugAxes(node: SCNNode, recursively: Bool = false) {
@@ -59,12 +62,7 @@ class SCNNodeVisualDebugger: NSObject {
         }
         node.addChildNode(pivotAxes)
         
-        let observation = node.observe(\.pivot) { [weak self] node, change in
-            pivotAxes.transform = node.pivot
-            guard let strongSelf = self else { return }
-            strongSelf.updatePivotAxesIfNeeded(for: node)
-        }
-        observations[node] = observation
+        nodeObserverHelper.addObserver(to: node)
         
         if recursively {
             node.childNodes.forEach { debugAxes(node: $0, recursively: true) }
@@ -129,13 +127,12 @@ class SCNNodeVisualDebugger: NSObject {
         if let existingLocalAxes = node.childNode(withName: CoordinateSystem.local, recursively: false) {
             existingLocalAxes.removeFromParentNode()
         }
+        
         if let exsitingPivotAxes = node.childNode(withName: CoordinateSystem.pivot, recursively: false) {
             exsitingPivotAxes.removeFromParentNode()
         }
         
-        if let existingObservation = observations.removeValue(forKey: node) {
-            existingObservation.invalidate()
-        }
+        nodeObserverHelper.removeObserver(from: node)
     }
 }
 
@@ -204,5 +201,18 @@ extension SCNNodeVisualDebugger {
             rootNode = parent
         }
         return rootNode
+    }
+}
+
+
+//MARK: SCNNodeObserverHelperDelegate
+extension SCNNodeVisualDebugger: SCNNodeObserverHelperDelegate {
+    
+    func nodeObserverHelperDelegate(_ helper: SCNNodeObserverHelper, didNodePivotChange node: SCNNode) {
+        guard let pivotAxes = node.pivotAxes else {
+            fatalError("Node must have pivot axes")
+        }
+        pivotAxes.transform = node.pivot
+        updatePivotAxesIfNeeded(for: node)
     }
 }
