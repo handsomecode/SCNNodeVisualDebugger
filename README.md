@@ -1,24 +1,16 @@
 # SCNNodeVisualDebugger
-A simple tool for showing local and pivot coordinate system of [`SCNNode`](https://developer.apple.com/documentation/scenekit/scnnode?language=objc).
-
-[Preview]()
 
 [![Swift version](https://img.shields.io/badge/swift-3.1-orange.svg?style=flat.svg)](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](./LICENSE)
 
-A simple tool for showing local and pivot coordinate system of a specific node.
+A simple tool for showing local and pivot coordinate system of [`SCNNode`](https://developer.apple.com/documentation/scenekit/scnnode?language=objc).
+
+Initially created during experiments with ARKit + SceneKit.
+
+[Preview]()
 
 #### If you like this tool, please give your :star: to this repository.
-
-## Communication
-
-- If you **need help or found a bug**, please, open an issue.
-- If you **have a feature request**, open an issue.
-- If you **are ready to contribute**, submit a pull request to ***develop*** branch.
-- If you **like SCNNodeVisualDebugger**, please, give it a star.
-
-You can find more details into [CONTRIBUTING](./CONTRIBUTING.md) file.
 
 # Installation
 
@@ -75,6 +67,18 @@ Set `enableDebugAxesByDoubleTap` property of `SCNView` instance to `true` to ena
 ````swift
 sceneView.enableDebugAxesByDoubleTap = true
 ````
+
+#### Samples
+Use [SceneKitSample](./SceneKitSample) and [ARKitSample](./ARKitSample) to see implementation details.
+
+# Communication
+
+- If you **need help or found a bug**, please, open an issue.
+- If you **have a feature request**, open an issue.
+- If you **are ready to contribute**, submit a pull request to ***develop*** branch.
+- If you **like SCNNodeVisualDebugger**, please, give it a star.
+
+You can find more details into [CONTRIBUTING](./CONTRIBUTING.md) file.
 
 # Requirements
 - iOS 9.0+
