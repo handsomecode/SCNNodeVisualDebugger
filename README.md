@@ -1,5 +1,7 @@
 # SCNNodeVisualDebugger
+A simple tool for showing local and pivot coordinate system of [`SCNNode`](https://developer.apple.com/documentation/scenekit/scnnode?language=objc).
 
+[Preview]()
 
 [![Swift version](https://img.shields.io/badge/swift-3.1-orange.svg?style=flat.svg)](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -32,6 +34,47 @@ To install it through [Carthage](https://github.com/Carthage/Carthage), add the 
 ```
 github "handsomecode/SCNodeVisualDebugger"
 ```
+
+# Usage
+
+#### Importing the library to get access to API
+````swift
+import SCNNodeVisualDebugger
+````
+
+#### Adding debug axes to the specific node
+````swift
+let node: SCNNode = // provide SCNNode instance 
+
+node.addDebugAxes()
+````
+If you need to add debug axes to child nodes as well you should pass a flag `recursively` as `true` as a parameter of the method. By default, `recursively` value is `false` 
+````swift
+node.addDebugAxes(recursively = true)
+````
+
+#### Removing debug axes from the specific node
+````swift
+node.removeDebugAxes()
+````
+If you need to remove debug axes from child nodes as well you should pass a flag `recursively` as `true` as a parameter of the method. By default, `recursively` value is `false` 
+````swift
+node.removeDebugAxes(recursively = true)
+````
+#### Checking debug axes from the specific node
+````swift
+if node.hasDebugAxes() {
+    // some actions
+}
+````
+
+#### Adding and removing debug axes to node by double tap
+It can be useful to show or remove debug axes at runtime. For this purpose, you can use a double tap on a specific node. 
+
+Set `enableDebugAxesByDoubleTap` property of `SCNView` instance to `true` to enable double tap trigger.
+````swift
+sceneView.enableDebugAxesByDoubleTap = true
+````
 
 # Requirements
 - iOS 9.0+
