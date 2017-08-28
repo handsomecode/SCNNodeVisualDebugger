@@ -8,7 +8,7 @@ A simple tool for showing local and pivot coordinate system of [`SCNNode`](https
 
 Initially created during experiments with ARKit + SceneKit.
 
-[Preview]()
+![Demo](https://user-images.githubusercontent.com/8081860/29773337-bd0746f2-8c1e-11e7-9dd5-6b640d898484.gif)
 
 #### If you like this tool, please give your :star: to this repository.
 
