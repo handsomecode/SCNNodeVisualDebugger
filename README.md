@@ -8,7 +8,14 @@ A simple tool for showing local and pivot coordinate system of [`SCNNode`](https
 
 Initially created during experiments with ARKit + SceneKit.
 
-[Preview]()
+![Demo](https://user-images.githubusercontent.com/8081860/29773337-bd0746f2-8c1e-11e7-9dd5-6b640d898484.gif)
+
+### Color notation
+
+| Coordinate System | X | Y | Z |
+| --- | :---: | :---: | :---: |
+| Local | ![Red](https://placehold.it/15/f00/000000?text=+) | ![Green](https://placehold.it/15/0f0/000000?text=+) | ![Blue](https://placehold.it/15/00f/000000?text=+) |
+| Pivot | ![Magenta](https://placehold.it/15/f0f/000000?text=+) | ![Yellow](https://placehold.it/15/ff0/000000?text=+) | ![Cyan](https://placehold.it/15/0ff/000000?text=+) |
 
 #### If you like this tool, please give your :star: to this repository.
 
