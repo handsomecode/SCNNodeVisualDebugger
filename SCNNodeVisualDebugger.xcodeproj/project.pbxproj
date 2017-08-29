@@ -15,6 +15,7 @@
 		882CA9571F45ABD1002FD8DA /* SCNNodeVisualDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA9531F45AA67002FD8DA /* SCNNodeVisualDebugger.swift */; };
 		882CA9591F45AC15002FD8DA /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA9581F45AC15002FD8DA /* SCNNode+Helpers.swift */; };
 		882CA95B1F45ACD4002FD8DA /* CoordinateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882CA95A1F45ACD4002FD8DA /* CoordinateSystem.swift */; };
+		88554F0B1F556FF8009E56D5 /* AxesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88554F0A1F556FF8009E56D5 /* AxesHelper.swift */; };
 		8895CFEA1F4EF70D00DC2657 /* SCNNodeObserverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8895CFE91F4EF70D00DC2657 /* SCNNodeObserverHelper.swift */; };
 		88A43DF21F4C3A920008BB10 /* SCNView+DebuggingByDoubleTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A43DF11F4C3A920008BB10 /* SCNView+DebuggingByDoubleTap.swift */; };
 		88A43DF41F4C5B210008BB10 /* AxesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A43DF31F4C5B210008BB10 /* AxesSettings.swift */; };
@@ -42,6 +43,7 @@
 		882CA9551F45AAD2002FD8DA /* SNNode+DebugAxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SNNode+DebugAxes.swift"; sourceTree = "<group>"; };
 		882CA9581F45AC15002FD8DA /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
 		882CA95A1F45ACD4002FD8DA /* CoordinateSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSystem.swift; sourceTree = "<group>"; };
+		88554F0A1F556FF8009E56D5 /* AxesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxesHelper.swift; sourceTree = "<group>"; };
 		8895CFE91F4EF70D00DC2657 /* SCNNodeObserverHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNNodeObserverHelper.swift; sourceTree = "<group>"; };
 		88A43DF11F4C3A920008BB10 /* SCNView+DebuggingByDoubleTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNView+DebuggingByDoubleTap.swift"; sourceTree = "<group>"; };
 		88A43DF31F4C5B210008BB10 /* AxesSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxesSettings.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				8895CFE91F4EF70D00DC2657 /* SCNNodeObserverHelper.swift */,
 				882CA95A1F45ACD4002FD8DA /* CoordinateSystem.swift */,
 				88A43DF31F4C5B210008BB10 /* AxesSettings.swift */,
+				88554F0A1F556FF8009E56D5 /* AxesHelper.swift */,
 				882CA93D1F45A65E002FD8DA /* Info.plist */,
 			);
 			path = Sources;
@@ -229,6 +232,7 @@
 				88A43DF41F4C5B210008BB10 /* AxesSettings.swift in Sources */,
 				88A43DF21F4C3A920008BB10 /* SCNView+DebuggingByDoubleTap.swift in Sources */,
 				882CA9591F45AC15002FD8DA /* SCNNode+Helpers.swift in Sources */,
+				88554F0B1F556FF8009E56D5 /* AxesHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
