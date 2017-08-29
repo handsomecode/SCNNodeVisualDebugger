@@ -35,12 +35,9 @@ protocol SCNNodeObserverHelper: class  {
 struct SCNNodeObserverHelperProvider {
     static func make() -> SCNNodeObserverHelper {
 // FIXME: Make this available when Xcode 9 has stable version
-//        if #available(iOS 11.0, *) {
-//            #if swift(>=4.0)
-//                return IOS11SCNNodeObserverHelper()
-//            #endif
-//            return PreIOS11SCNNodeObserverHelper()
-//        }
+//        #if swift(>=4.0)
+//            return IOS11SCNNodeObserverHelper()
+//        #endif
         
         return PreIOS11SCNNodeObserverHelper()
     }
