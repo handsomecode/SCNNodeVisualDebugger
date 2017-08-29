@@ -39,7 +39,7 @@ extension SCNNode {
         return self.childNode(withName: CoordinateSystem.pivot, recursively: false)
     }
     
-    var lengthOfTheGreatestSideOfBoundingBox: Float {
+    var lengthOfTheGreatestSideOfNodeBox: Float {
         return self.geometry?.lengthOfTheGreatestSide ?? self.lengthOfTheGreatestSide
     }
 }
