@@ -18,7 +18,9 @@
 import Foundation
 import SceneKit
 
-enum AxesHelper {
+struct AxesHelper {
+    
+    private init() {}
     
     static func makeAxes(with settings: AxesSettings) -> SCNNode {
         
