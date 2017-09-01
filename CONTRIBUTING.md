@@ -1,4 +1,4 @@
-# Contributing to InteractiveSideMenu
+# Contributing to SCNNodeVisualDebugger
 
 :+1: First of all, big thanks for your desire to contribute in this project :+1:
 
