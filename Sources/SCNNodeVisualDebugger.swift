@@ -44,7 +44,7 @@ class SCNNodeVisualDebugger: NSObject {
         nodeObserverHelper.removeAllObservers()
     }
     
-    func debugAxes(node: SCNNode, recursively: Bool = false) {
+    func addDebugAxes(to node: SCNNode, recursively: Bool = false) {
         guard !node.isDebugAxes else { return }
         
         removeDebuggingForNode(node)
@@ -64,15 +64,15 @@ class SCNNodeVisualDebugger: NSObject {
         nodeObserverHelper.addObserver(to: node)
         
         if recursively {
-            node.childNodes.forEach { debugAxes(node: $0, recursively: true) }
+            node.childNodes.forEach { addDebugAxes(to: $0, recursively: true) }
         }
     }
     
-    func undebugAxes(node: SCNNode, recursively: Bool = false) {
+    func removeDebugAxes(from node: SCNNode, recursively: Bool = false) {
         removeDebuggingForNode(node)
         
         if recursively {
-            node.childNodes.forEach { undebugAxes(node: $0, recursively: true) }
+            node.childNodes.forEach { removeDebugAxes(from: $0, recursively: true) }
         }
     }
 

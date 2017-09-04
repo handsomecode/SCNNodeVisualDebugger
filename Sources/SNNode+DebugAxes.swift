@@ -24,14 +24,14 @@ public extension SCNNode {
     ///
     /// - Parameter recursively: if it set to `true` then debug axes are added to each child nodes. Default value is `false`.
     public func addDebugAxes(recursively: Bool = false) {
-        SCNNodeVisualDebugger.shared.debugAxes(node: self, recursively: recursively)
+        SCNNodeVisualDebugger.shared.addDebugAxes(to: self, recursively: recursively)
     }
     
     /// Removes showing debug axes (local and pivot coordinate systems) from the node.
     ///
     /// - Parameter recursively: if it set to `true` then debug axes are removed from each child nodes. Default value is `false`.
     public func removeDebugAxes(recursively: Bool = false) {
-        SCNNodeVisualDebugger.shared.undebugAxes(node: self, recursively: recursively)
+        SCNNodeVisualDebugger.shared.removeDebugAxes(from: self, recursively: recursively)
     }
     
     /// Checks if the node has debug axes.
